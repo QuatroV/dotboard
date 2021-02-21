@@ -13,7 +13,7 @@
       <p class="card-text"><%=post.body%></p>
       <footer class="blockquote-footer mb-3"> <%= post.created_at %></footer>
       <div class="btn-group">
-          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Show comments
+          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Comments
           <span class="badge badge-pill badge-dark"><%= post.comments_count%></span></a>
           <% if !current_user.nil? && current_user.id == post.author_id.to_i%>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-outline-success btn-group-toggle"%>
