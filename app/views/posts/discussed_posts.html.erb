@@ -12,7 +12,7 @@
       <h5 class="card-title"><%=post.title%></h5>
       <p class="card-text"><%=post.body%></p>
       <div class="btn-group">
-          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Show 
+          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Show comments
           <span class="badge badge-pill badge-dark"><%= post.comments_count%></span></a>
           <% if !current_user.nil? && current_user.id == post.author_id.to_i%>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-outline-success btn-group-toggle"%>
@@ -23,4 +23,3 @@
   </div>
 <% end %>
 <% end %>
-<br>

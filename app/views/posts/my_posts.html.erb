@@ -12,7 +12,7 @@
       <h5 class="card-title"><%=post.title%></h5>
       <p class="card-text"><%=post.body%></p>
       <div class="btn-group">
-          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Show 
+          <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Show comments
           <span class="badge badge-pill badge-dark"><%= post.comments_count%></span></a>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-outline-success btn-group-toggle"%>
           <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-group-toggle"%>
@@ -22,7 +22,3 @@
 <% end %>
 <%= paginate @posts %>
 <% end %>
-<br>
-<% if !current_user.nil? %>
-<%= link_to 'New Post', new_post_path, class: "btn btn-outline-primary" %>
-<% end  %>
