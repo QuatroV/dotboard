@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DotBoard</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <style>
+      body { background-image: linear-gradient( 179.4deg,  rgba(253,240,233,1) 2.2%, rgba(255,194,203,1) 96.2% );
+             background-attachment: fixed;
+            }
+      .without-footer{
+            min-height: calc(100vh - 72px);
+      }
+    </style>
+    <%= favicon_link_tag asset_path('/baseline_chat_bubble_outline_black_18dp.png') %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div class="without-footer">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <a class="navbar-brand mb-0" href="<%=root_url%>"><img src="/baseline_chat_bubble_outline_black_18dp.png" width="40" height="40" alt=".Textboard"> DotBoard </a>
+    <% if controller_name != "registrations" && controller_name != "sessions" && controller_name != "mailer" then %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="<%= root_url %>"> All posts <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="<%= posts_discussed_posts_url %>"> Hot posts <span class="sr-only">(current)</span></a>
+            </li>
+            <% if !current_user.nil? %>
+            <li class="nav-item ">
+              <a class="nav-link" href="<%= posts_my_posts_url %>"> My posts <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="<%= new_post_url %>"> Create a post <span class="sr-only">(current)</span></a>
+            </li>
+            <% end %>
+          </ul>
+          <div class = "float-lg-right mb-2 mb-lg-0 mt-1 mt-lg-0 ">
+          <% if !current_user.nil? %>
+            Current user: <%= current_user.name %> 
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete%>
+          <% else %>
+            <%= link_to "Log in", new_user_session_path%>
+          <% end %>
+          </div>
+      </div>
+    <% end %>
+    </nav>
+
+    <% if controller_name == "posts" then %>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="bg-white col-lg-12 m-lg-5 p-lg-5 shadow p-5" >
+          <% if notice or alert then %>
+            <div class="alert alert-primary alert-dismissible fade show col-md-6 offset-md-3 justify-content-center" role="alert">
+                  <%= notice %><%= alert %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+    <div class="container">
+      <div class="row justify-content-center">
+          <div class="bg-white col-lg-5 m-lg-5 p-lg-5 shadow p-5" >
+          <% if notice or alert then %>
+            <div class="alert alert-primary alert-dismissible fade show justify-content-center" role="alert">
+                  <%= notice %><%= alert %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>  
+    <% end %>
+
+  </div>
+
+  <footer class="footer bg-light p-4 ">
+      <div class="container">
+        <span class="text-muted">KTM, 2021</span>
+      </div>
+  </footer>
+
+  </body>
+</html>

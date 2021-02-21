@@ -1,0 +1,57 @@
+<div class="card mb-3 <% if !current_user.nil? && current_user.id == @post.author_id.to_i %> 
+                  border-primary
+                  <% end %>">
+  <h5 class="card-header"><%= User.find_by(id: @post.author_id).name %></h5>
+    <div class="card-body">
+      <h5 class="card-title"><%=@post.title%></h5>
+      <p class="card-text"><%=@post.body%></p>
+      <% if !current_user.nil? && current_user.id == @post.author_id.to_i%>
+      <div class="btn-group">
+          <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-success btn-group-toggle"%>
+          <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-group-toggle"%>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<div class="comments">
+  <h5 class = "mb-3"> Comments: </h5>
+  <% if @comments.empty? then %>
+    <p class="text-muted"> No comments yet! </p>
+  <% else %>
+  <% @comments.each do |comment| %>
+    <div class="card mb-3 <% if !current_user.nil? && current_user.id == comment.author_id%> 
+                  border-primary
+                  <% end %>">
+    <h5 class="card-header"><%= User.find_by(id: comment.author_id).name %></h5>
+      <div class="card-body">
+        <p class="card-text"><%=comment.body%></p>
+        <% if !current_user.nil? && current_user.id == comment.author_id%>
+          <div class="btn-group">
+            <%= link_to 'Delete', comments_destroy_path(id: comment.id, post_id: @post.id) , method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-group-toggle"%>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+  <% if !current_user.nil? %>
+    <h5> Add a new comment: </h5>
+    <div class="card mb-3 border-dark">
+        <div class="card-body">
+          <%= simple_form_for @new_comment, url: comments_create_path(@post.id) do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+            <div class="form-inputs">
+              <%= f.input :body, label: false%>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, class: "btn btn-outline-success "  %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+  </div>
+  <% end  %>
+<div class="btn-group">
+  <%= link_to 'Back', posts_path, class: "btn btn-outline-primary" %>
+</div>
