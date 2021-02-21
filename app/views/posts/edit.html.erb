@@ -2,7 +2,7 @@
 <hr>
 <%= render 'form', post: @post %>
 
-<div class="btn-group">
+<div class="btn-group mb-3">
     <%= link_to 'Show', @post, class: "btn btn-outline-primary" %>
     <%= link_to 'Back', posts_path, class: "btn btn-outline-primary" %>
     <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-group-toggle"%>
