@@ -4,7 +4,7 @@
 <p class="text-muted"> No posts yet! </p>
 <% else %>
 <% @posts.each do |post| %>
-  <div class="card mb-3 <% if !current_user.nil? && current_user.id == post.author_id.to_i%> 
+  <div class="card mb-3 <% if current_user && current_user.id == post.author_id.to_i%> 
                   border-primary
                   <% end %>">
   <h5 class="card-header"><%= User.find_by(id: post.author_id).name %></h5>
@@ -16,7 +16,7 @@
       <div class="btn-group">
           <a class="btn btn-outline-primary btn-group-toggle" href="<%= post_path(id: post.id)%>">Comments
           <span class="badge badge-pill badge-dark"><%= post.comments_count%></span></a>
-          <% if !current_user.nil? && current_user.id == post.author_id.to_i%>
+          <% if current_user && current_user.id == post.author_id.to_i%>
           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-outline-success btn-group-toggle"%>
           <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-group-toggle"%>
           <% end %>

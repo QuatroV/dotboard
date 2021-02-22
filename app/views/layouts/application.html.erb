@@ -34,23 +34,31 @@
             <li class="nav-item ">
               <a class="nav-link" href="<%= posts_discussed_posts_url %>"> Hot posts <span class="sr-only">(current)</span></a>
             </li>
-            <% if !current_user.nil? %>
+            <% if current_user %>
             <li class="nav-item ">
               <a class="nav-link" href="<%= posts_my_posts_url %>"> My posts <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item ">
+            
+            <% end %>
+          
+          <% if current_user %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Current user: <%= current_user.name %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Edit", edit_user_registration_path, class: "dropdown-item"%>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item"%>
+            </div>
+          </li>
+          <% else %>
+            <%= link_to "Log in", new_user_session_path, class: "nav-link"%>
+          <% end %>
+          <li class="nav-item ">
               <a class="nav-link" href="<%= new_post_url %>"> Create a post <span class="sr-only">(current)</span></a>
             </li>
-            <% end %>
           </ul>
-          <div class = "float-lg-right mb-2 mb-lg-0 mt-1 mt-lg-0 ">
-          <% if !current_user.nil? %>
-            Current user: <%= current_user.name %> 
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete%>
-          <% else %>
-            <%= link_to "Log in", new_user_session_path%>
-          <% end %>
-          </div>
       </div>
     <% end %>
     </nav>
