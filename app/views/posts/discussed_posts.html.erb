@@ -8,6 +8,7 @@
                   border-primary
                   <% end %>">
   <h5 class="card-header"><%= User.find_by(id: post.author_id).name %></h5>
+  <%=  image_tag(post.image, class: "card-img-top") if post.image.attached?  %>
     <div class="card-body">
       <h5 class="card-title"><%=post.title%></h5>
       <p class="card-text"><%=post.body%></p>
