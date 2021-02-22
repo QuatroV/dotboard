@@ -1,7 +1,13 @@
 <div class="card mb-3 <% if current_user && current_user.id == @post.author_id.to_i %> 
                   border-primary
                   <% end %>">
-  <h5 class="card-header"><%= User.find_by(id: @post.author_id).name %></h5>
+  <% author = User.find_by(id: @post.author_id)%>
+    <div class="card-header pb-0 pt-3">
+      <div class="row d-flex align-items-center">
+        <%= image_tag user_avatar(author), width:"50", heigth:"50", class:"rounded mb-3 ml-2 " %>
+        <h5 class="ml-2"><%= author.name %></h5>
+      </div>
+    </div>
   <%=  image_tag(@post.image, class: "card-img-top") if @post.image.attached?  %>
     <div class="card-body">
       <h5 class="card-title"><%=@post.title%></h5>
@@ -23,7 +29,13 @@
     <div class="card mb-3 <% if current_user && current_user.id == comment.author_id%> 
                   border-primary
                   <% end %>">
-    <h5 class="card-header"><%= User.find_by(id: comment.author_id).name %></h5>
+    <% author = User.find_by(id: comment.author_id)%>
+    <div class="card-header pb-0 pt-3">
+      <div class="row d-flex align-items-center">
+        <%= image_tag user_avatar(author), width:"50", heigth:"50", class:"rounded mb-3 ml-2 " %>
+        <h5 class="ml-2"><%= author.name %></h5>
+      </div>
+    </div>
       <div class="card-body">
         <p class="card-text"><%=comment.body%></p>
         <% if current_user && current_user.id == comment.author_id%>

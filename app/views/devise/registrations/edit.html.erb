@@ -1,14 +1,11 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit <%= resource_name.to_s.humanize %> </h2>
 <hr>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
-  <% if resource.avatar.attached? %>
-
-    <% else %>
-    <% end %>
-    
+    <%= image_tag user_avatar(resource), width:"250", heigth:"250", class:"rounded img-thumbnail mx-auto d-block mb-3" %>
   <div class="form-inputs">
-    <%= file_field :avatar%>
+    <%= f.label "Change your avatar:"%>
+    <%= f.file_field :avatar, class: "mb-2 " %>
     <%= f.input :email, required: true, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
